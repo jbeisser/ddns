@@ -1,0 +1,24 @@
+The Less Than Simple DynDNS Update client.
+
+It does one thing, and does it decently enough: updates DynDNS with a specific
+interface's IP address.
+
+It does not:
+    - try to log in to a router for you
+    - attempt to handle logins for a web form
+
+It does:
+    - "just work" for OpenBSD 4.5
+    - get and parse the interface's IP (via ifconfig(8))
+    - work via a simple config file
+    - use HTTPS, with authentication to the remote side.
+
+It's not intended to be anything complicated or solve more than the simplest of
+problems: updating a set of hostnames for a single IP address.
+
+It's verified to work with all DynDNS domains and hosted DNS domains.
+
+TODO:
+    - support Linux's ifconfig(8)/ip(8) tools (by platform)
+    - Log failures, successes, etc
+    - error handling would be nice.
