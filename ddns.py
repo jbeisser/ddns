@@ -25,7 +25,6 @@ class updater_t(object):
         self.domain = domain
         self.UA     = "Slightly Less Than Simple DynDNS Updater; Python/urllib2 - 0.1"
 
-
     def update(self):
         passm = urllib2.HTTPPasswordMgrWithDefaultRealm()
         passm.add_password(None, 'https://%s' % DDNS_HOST, self.user, self.pw)
@@ -39,7 +38,6 @@ class updater_t(object):
         print(res.read())
         #return self.parse(res.read())
 
-
     def buildURL(self):
         base  = 'https://' + DDNS_HOST + DDNS_URL
         hosts = self.buildHostnames(self.hosts)
@@ -52,13 +50,11 @@ class updater_t(object):
 
         return url
 
-
     def buildHostnames(self, hosts):
         l = []
         for h in hosts:
             l.append("%s.%s" % (h.strip(), self.domain))
         return ','.join(l)
-
 
     def parse(self, res):
         '''parse the answer to figure out success or not.'''
@@ -70,13 +66,11 @@ class updater_t(object):
             raise(res)
 
 
-
 class interface_t(object):
     def __init__(self, iface=None):
         self.iface = iface
         self.IP = None
         self.getIP()
-
 
     def getIP(self):
         if self.IP == None:
@@ -87,28 +81,22 @@ class interface_t(object):
                     self.IP = l.split()[1]
         return self.IP
 
-
     def getIF(self):
         return self.iface
-
 
 
 class file_t(object):
     def __init__(self, fn=None):
         self.fn = fn
 
-
     def getFn(self):
         return self.fn
-
 
     def setFn(self, fn):
         self.fn = fn
 
-
     def exists(self):
         return(os.path.exists(self.fn))
-
 
 
 class datafile_t(file_t):
@@ -117,7 +105,6 @@ class datafile_t(file_t):
         file_t.__init__(self, fn)
         self.IP    = None
         self.hosts = None
-
 
     def read(self):
         ip = None
@@ -136,14 +123,11 @@ class datafile_t(file_t):
             self.IP = li[0]
             self.hosts = li[1:]
 
-
     def setIP(self, ip):
         self.IP = ip
 
-
     def setHosts(self, hosts):
         self.hosts = hosts
-
 
     def write(self, ip = None, hosts = None):
         if ip == None:
@@ -163,7 +147,6 @@ class datafile_t(file_t):
         fh.close()
 
 
-
 class config_t(file_t):
     def __init__(self, fn='/etc/ddns/config'):
         file_t.__init__(self, fn)
@@ -172,7 +155,6 @@ class config_t(file_t):
         self.pw    = None
         self.dom   = None
         self.hosts = []
-
 
     def read(self):
         fh = open(self.fn, 'r')
@@ -191,23 +173,17 @@ class config_t(file_t):
                 pass
         fh.close()
 
-
     def getUser(self):
         return self.user
-
 
     def getPass(self):
         return self.pw
 
-
     def getDom(self):
         return self.dom
 
-
     def getHosts(self):
         return self.hosts
-
-
 
 
 def main():
@@ -266,4 +242,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
